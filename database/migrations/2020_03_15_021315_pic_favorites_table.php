@@ -14,11 +14,12 @@ class PicFavoritesTable extends Migration
     public function up()
     {
         schema::create('pic_favorites', function(Blueprint $table){
-            $table->biIncrements('id');
+            $table->bigIncrements('id');
             $table->integer('post_id');
-            $table->integer('use_id');
+            $table->integer('user_id');
             $table->integer('pos_x');
             $table->integer('pos_y');
+            $table->timestamps();
            
         });
         //

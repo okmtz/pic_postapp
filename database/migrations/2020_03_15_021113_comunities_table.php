@@ -16,7 +16,7 @@ class ComunitiesTable extends Migration
         Schema::create('comunities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->timestamps('created_at');
+            $table->timestamps();
         });
         //
     }

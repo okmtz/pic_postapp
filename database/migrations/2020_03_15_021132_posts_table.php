@@ -17,8 +17,8 @@ class PostsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->string('content');
-            $table->LONGBLOB('picture');
-            $table->timestamp('created_at');
+            $table->binary('picture');
+            $table->timestamps();
 
         });
         //

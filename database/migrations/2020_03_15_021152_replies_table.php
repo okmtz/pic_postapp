@@ -13,13 +13,13 @@ class RepliesTable extends Migration
      */
     public function up()
     {
-        schema::create('replies',function(Blueprint $tabel) {
+        schema::create('replies',function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->integer('post_id');
             $table->string('content');
-            $table->LONGBLOB('picture')->nullable;
-            $table->timestamp('created_at');
+            $table->binary('picture')->nullable;
+            $table->timestamps();
         });
         //
     }
