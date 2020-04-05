@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Post;   
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -45,6 +51,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $post = Post::findOrFail($id);
+        return view('post.show', compact('post'));
         //
     }
 
