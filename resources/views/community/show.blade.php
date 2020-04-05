@@ -1,5 +1,6 @@
 @extends('layouts.community')
 @section('content')
+    <a href="{{ action('PostController@create', ['community_id' => $community->id]) }}">create post</a>
     @foreach($posts as $post)
         <table>
             <tr>コンテンツ名</tr>
