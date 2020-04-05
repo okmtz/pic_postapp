@@ -69,8 +69,9 @@ class CommunityController extends Controller
     {
         $community = Community::findOrFail($id);
         $posts = $community->posts()->get();
-        return view('community.show', compact('posts'));
+        return view('community.show', compact('posts', 'community'));
         //
+       
     }
 
     /**
