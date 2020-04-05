@@ -8,7 +8,7 @@ use App\Community;
 use App\User;
 
 
-class ComunityController extends Controller
+class CommunityController extends Controller
 {
     public function __construct()
     {
@@ -51,11 +51,11 @@ class ComunityController extends Controller
     public function store(Request $request)
     {
         $params = $request->validate([
-            'user_id' => 'required|exists:users, id',
+            'user_id' => 'required|exists:users,id',
             'name' => 'required|unique:communities|max:50 '
         ]);
-        Comunity::create($params);
-        return redirect()->route('/');
+        Community::create($params);
+        return redirect()->route('community');
         //
     }
 
@@ -67,6 +67,9 @@ class ComunityController extends Controller
      */
     public function show($id)
     {
+        $community = Community::findOrFail($id);
+        $posts = $community->posts()->get();
+        return view('community.show', compact('posts'));
         //
     }
 
