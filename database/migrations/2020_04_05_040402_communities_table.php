@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ComunitiesTable extends Migration
+class CommunitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,6 @@ class ComunitiesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
-        //
     }
 
     /**
@@ -29,6 +28,7 @@ class ComunitiesTable extends Migration
      */
     public function down()
     {
+       
         //
     }
 }
