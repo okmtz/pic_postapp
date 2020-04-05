@@ -13,7 +13,7 @@ class ComunitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('comunities', function (Blueprint $table) {
+        Schema::create('communities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->string('name');

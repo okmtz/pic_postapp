@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Community;
+use App\User;
+
 
 class ComunityController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,6 +21,11 @@ class ComunityController extends Controller
      */
     public function index()
     {
+      $user = Auth::user();
+
+      $comunities = Comunity::all();
+      
+      return view('comunity.index', compact('communities', 'user'));
         //
     }
 
@@ -23,6 +36,9 @@ class ComunityController extends Controller
      */
     public function create()
     {
+        $user = Auth::User();
+        
+        return view('community.create', compact('user'));
         //
     }
 
@@ -34,6 +50,12 @@ class ComunityController extends Controller
      */
     public function store(Request $request)
     {
+        $params = $request->validate([
+            'user_id' => 'required|exists:users, id',
+            'name' => 'required|unique:communities|max:50 '
+        ]);
+        Comunity::create($params);
+        return redirect()->route('/');
         //
     }
 

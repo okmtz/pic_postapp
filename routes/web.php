@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/community', 'CommunityController');
+Route::get('/community', 'CommunityController@index')->name('community');
+Auth::routes();
+
+
+
