@@ -13,6 +13,7 @@
 
 Route::resource('/community', 'CommunityController');
 Route::get('/community', 'CommunityController@index')->name('community');
+Route::resource('/post', 'PostController');
 Auth::routes();
 
 
