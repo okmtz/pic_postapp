@@ -18,7 +18,6 @@ class RepliesTable extends Migration
             $table->integer('user_id');
             $table->integer('post_id');
             $table->string('content');
-            $table->binary('picture')->nullable;
             $table->timestamps();
         });
         //
