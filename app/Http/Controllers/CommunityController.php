@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Community;
 use App\User;
+use App\Post;
+
 
 
 class CommunityController extends Controller
@@ -69,6 +71,7 @@ class CommunityController extends Controller
     {
         $community = Community::findOrFail($id);
         $posts = $community->posts()->get();
+        
         return view('community.show', compact('posts', 'community'));
         //
        
@@ -105,6 +108,16 @@ class CommunityController extends Controller
      */
     public function destroy($id)
     {
+        $community = Community::findOrFail($id);
+        $posts = Post::where('community_id', $community->id)->get();
+
+        foreach ($posts as $post){
+            $post->replies()->delete();
+        };
+
+        $community->posts()->delete();
+        $community->delete();
+        return redirect()->route('community');
         //
     }
 }
