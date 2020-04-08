@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in!<br>
+                    <a href="{{ action('CommunityController@index' ) }}">go to community page</a>
                 </div>
             </div>
         </div>
