@@ -59,7 +59,7 @@ class PostController extends Controller
         Post::create($params);
         $posts = Post::where('community_id', $params['community_id'])->get();
         $community = Community::findOrFail($params['community_id']);
-        return view('community.show', compact('posts','community'));
+        return redirect()->action('CommunityController@show', $community);
       
         //
     }
@@ -73,7 +73,10 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        return view('post.show', compact('post'));
+        $user = Auth::user();
+        $replies = $post->replies()->get();
+        return view('post.show', compact('post', 'replies', 'user'));
+
         //
     }
 
@@ -85,6 +88,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $post = Post::findOrFail($id);
+        return view('post.edit', compact('post'));
         //
     }
 
@@ -97,6 +102,17 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $params = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'community_id' => 'required|exists:communities,id',
+            'content' => 'required|max:200',
+        ]);
+        // storage/app/public/pictures下にランダムなファイル名で保存
+        $post = Post::findOrFail($id);
+        $post->fill($params)->save();
+        $user = Auth::user();
+        $replies = $post->replies()->get();
+        return redirect()->action('PostController@show', $post->id);
         //
     }
 
@@ -108,6 +124,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $community = Community::findOrFail($post->community_id);
+        $post->replies()->delete();
+        $post->delete();
+        $posts = $community->posts()->get();
+        return redirect()->action('CommunityController@show', $community);
     }
 }
