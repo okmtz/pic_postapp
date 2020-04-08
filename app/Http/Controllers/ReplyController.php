@@ -3,29 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Reply;
+use App\Post;
 
 class ReplyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -34,40 +20,17 @@ class ReplyController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $params = $request->validate([
+            'post_id' => 'required|exists:posts,id',
+            'content' => 'required|max:140',
+            'user_id' => 'required|exists:users,id',
+        ]);
+        Reply::create($params);
+        $replies = Reply::where('post_id', $params['post_id'])->get();
+        $post = Post::findOrFail($params['post_id']);
+        $user = Auth::user();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
+        return redirect()->action('PostController@show', $post);
         //
     }
 
