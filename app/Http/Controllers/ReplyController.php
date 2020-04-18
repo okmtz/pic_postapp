@@ -11,7 +11,11 @@ class ReplyController extends Controller
 {
 
 
-    
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('App\Http\Middleware\VerifyCsrfToken'); 
+    }
     /**
      * Store a newly created resource in storage.
      *

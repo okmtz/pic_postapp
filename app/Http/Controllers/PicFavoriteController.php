@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pic_favorite;
 
 class PicFavoriteController extends Controller
 {
@@ -34,6 +35,12 @@ class PicFavoriteController extends Controller
      */
     public function store(Request $request)
     {
+        Pic_favorite::updateOrCreate(
+            ['user_id' => $request->user_id, 'post_id' => $request->post_id],
+            ['pos_x' => $request->offsetX, 'pos_y'=>$request->offsetY],
+        );
+        
+        return redirect()->action('PostController@show', $request->post_id);
         //
     }
 

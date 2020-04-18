@@ -15,6 +15,7 @@ class CommunityController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('App\Http\Middleware\VerifyCsrfToken'); 
     }
     /**
      * Display a listing of the resource.

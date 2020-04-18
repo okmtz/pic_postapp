@@ -17,6 +17,7 @@ Route::get('/community', 'CommunityController@index')->name('community');
 Route::resource('/post', 'PostController');
 Route::get('/post', 'PostController@show')->name('post');
 Route::resource('/reply', 'ReplyController');
+Route::post('/picfavorite', 'PicFavoriteController@store');
 Auth::routes();
 
 
